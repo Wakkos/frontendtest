@@ -1,0 +1,133 @@
+/* Main page */
+.playpage {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+
+  @include respond-to(sm-up) {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  @include respond-to(md-up) {
+    gap: var(--gap-40);
+  }
+
+  &__board {
+    padding: var(--gap-10);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    @include respond-to(sm-up) {
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  &__notes {
+    flex: 1;
+    overflow-y: scroll;
+    background:
+		/* Shadow covers */ linear-gradient(var(--color-background-light) 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), var(--color-background-light) 70%) 0 100%, /* Shadows */ linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0)), linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.4)) 0 100%;
+    background-repeat: no-repeat;
+    background-color: var(--color-background-light);
+    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    border-top: 1px solid var(--color-border);
+
+    /* Opera doesn't support this in the shorthand */
+    background-attachment: local, local, scroll, scroll;
+
+    @include respond-to(sm-up) {
+      flex: 0 0 130px;
+      max-height: 100vh;
+      border-top: none;
+    }
+
+    &__title {
+      padding: 0 var(--gap-10);
+    }
+
+    &__empty {
+      opacity: 0.5;
+      padding: 0 var(--gap-10);
+    }
+  }
+
+  &__clicks {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: click;
+
+    &__item {
+      counter-increment: click;
+      display: flex;
+      align-items: center;
+      line-height: 2;
+      padding: 0 var(--gap-10);
+      color: #ffd1e3;
+
+      &:nth-of-type(even) {
+        color: #f62681;
+      }
+
+      &::before {
+        content: counter(click) ".";
+        display: inline-block;
+        font-size: 0.6em;
+        color: currentColor;
+        margin-right: 1em;
+        opacity: 0.5;
+        text-align: right;
+        width: 1.2em;
+      }
+    }
+  }
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  aspect-ratio: 1/1;
+  border: 1px solid #ccc;
+  width: min(100%, calc(100vh - var(--gap-10) * 4));
+
+  &__square {
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: opacity 0.2s;
+
+    &::hover {
+      opacity: 0.9;
+    }
+    &__notation {
+      font-size: 0.75rem;
+      opacity: 0.5;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+  }
+}
+
+// Out of BEM to avoid VUE assertion problems
+.whites {
+  background-color: var(--color-whites);
+  color: var(--color-blacks);
+}
+
+.blacks {
+  background-color: var(--color-blacks);
+  color: var(--color-whites);
+}
+
+.clicked {
+  box-shadow: inset 0 0 0 4px white;
+}

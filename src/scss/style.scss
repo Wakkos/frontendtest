@@ -1,0 +1,24 @@
+@import "./base/custom-properties";
+@import "./base/scss-vars";
+@import "./utilities/mixins";
+@import "./views/chess-game-page";
+
+* {
+  &,
+  &:before,
+  &:after {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-background);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: var(--font-family);
+  font-size: 100%;
+  padding: 0;
+  margin: 0;
+}

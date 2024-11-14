@@ -1,0 +1,38 @@
+// Media Query Breakpoints
+// Usage:
+//   @include respond('sm-up')     -> from small breakpoint and up
+//   @include respond('md-up')     -> from medium breakpoint and up
+//   @include respond('lg-up')     -> from large breakpoint and up
+//   @include respond('sm-down')   -> from small breakpoint and down
+//   @include respond('md-down')   -> from medium breakpoint and down
+//   @include respond('lg-down')   -> from large breakpoint and down
+//   @include respond('sm-md')     -> between small and medium breakpoints
+//   @include respond('md-lg')     -> between medium and large breakpoints
+//
+// Example:
+// .my-class {
+//   color: red;         // default color
+//   @include respond('md-up') {
+//     color: blue;      // blue color from medium breakpoint and up
+//   }
+//   @include respond('sm-md') {
+//     padding: 20px;    // add padding only between small and medium breakpoints
+//   }
+// }
+
+@mixin respond-to($query) {
+  $queries: (
+    "sm-up": '(width >= #{map-get($breakpoints, "small")})',
+    "md-up": '(width >= #{map-get($breakpoints, "medium")})',
+    "lg-up": '(width >= #{map-get($breakpoints, "large")})',
+    "sm-down": '(width <= #{map-get($breakpoints, "small")})',
+    "md-down": '(width <= #{map-get($breakpoints, "medium")})',
+    "lg-down": '(width <= #{map-get($breakpoints, "large")})',
+    "sm-md": '(#{map-get($breakpoints, "small")} <= width <= #{map-get($breakpoints, "medium")})',
+    "md-lg": '(#{map-get($breakpoints, "medium")} <= width <= #{map-get($breakpoints, "large")})'
+  );
+
+  @media #{map-get($queries, $query)} {
+    @content;
+  }
+}
